@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    width="490"
+    height="430"
+    viewBox="0 0 490 430">
+
+    <rect x="0" y="0"
+          width="490"
+          height="430"
+          rx="12"
+          fill="#0d1117"
+          stroke="#30363d"
+          stroke-width="2"/>
+    
+
+    <style>
+        .title {
+            font-family: "Courier New", monospace;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .label {
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .value {
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+        }
+
+        .line {
+            opacity: 0;
+            animation: appear 0.5s ease forwards;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateX(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+    
+
+    <text x="25" y="38"
+          class="title"
+          fill="#39d353">
+        aditi@github
+    </text>
+
+    <text x="25" y="63"
+          class="value"
+          fill="#8b949e">
+        ~ $ whoami
+    </text>
+
+    <line x1="25" y1="78"
+          x2="465" y2="78"
+          stroke="#30363d"/>
+    
+
+            <g class="line"
+               style="animation-delay:0.00s">
+
+                <text x="25"
+                      y="112"
+                      class="label"
+                      fill="#39d353">
+                    ROLE
+                </text>
+
+                <text x="125"
+                      y="112"
+                      class="value"
+                      fill="#c9d1d9">
+                    Software Developer
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.12s">
+
+                <text x="25"
+                      y="140"
+                      class="label"
+                      fill="#58a6ff">
+                    FOCUS
+                </text>
+
+                <text x="125"
+                      y="140"
+                      class="value"
+                      fill="#c9d1d9">
+                    Web • AI • Data
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.24s">
+
+                <text x="25"
+                      y="168"
+                      class="label"
+                      fill="#bc8cff">
+                    STACK
+                </text>
+
+                <text x="125"
+                      y="168"
+                      class="value"
+                      fill="#c9d1d9">
+                    React • JavaScript
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.36s">
+
+                <text x="125"
+                      y="196"
+                      class="value"
+                      fill="#c9d1d9">
+                    Python • AI / ML
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.48s">
+
+                <text x="125"
+                      y="224"
+                      class="value"
+                      fill="#c9d1d9">
+                    Data Science
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.72s">
+
+                <text x="25"
+                      y="280"
+                      class="label"
+                      fill="#39d353">
+                    PROJECTS
+                </text>
+
+                <text x="125"
+                      y="280"
+                      class="value"
+                      fill="#c9d1d9">
+                    Portfolio Website
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.84s">
+
+                <text x="125"
+                      y="308"
+                      class="value"
+                      fill="#c9d1d9">
+                    Customer Feedback System
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:0.96s">
+
+                <text x="125"
+                      y="336"
+                      class="value"
+                      fill="#c9d1d9">
+                    AI / ML Projects
+                </text>
+
+            </g>
+            
+
+            <g class="line"
+               style="animation-delay:1.08s">
+
+                <text x="125"
+                      y="364"
+                      class="value"
+                      fill="#c9d1d9">
+                    Signal Analysis
+                </text>
+
+            </g>
+            
+
+    <line x1="25" y1="382"
+          x2="465" y2="382"
+          stroke="#30363d"/>
+
+    <text x="25"
+          y="410"
+          class="value"
+          fill="#8b949e">
+        Building • Learning • Creating
+    </text>
+    
+</svg>
