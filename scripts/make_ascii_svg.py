@@ -21,7 +21,10 @@ RAMP = " .`:-=+*cs#%@"
 FONT_SIZE = 8
 CHAR_WIDTH = 4.8
 LINE_HEIGHT = 9
+
+# Light gray ASCII on dark terminal background
 TEXT_COLOR = "#c9d1d9"
+BACKGROUND_COLOR = "#0d1117"
 
 # -----------------------------
 # Load image
@@ -35,13 +38,18 @@ if not INPUT.exists():
 
 image = Image.open(INPUT).convert("L")
 
-# Preserve the approximate aspect ratio of characters.
-# Terminal characters are taller than they are wide.
+# Preserve approximate aspect ratio
+# because terminal characters are taller
+# than they are wide.
 width, height = image.size
 
 chars_height = max(
     1,
-    round(height / width * CHARS_WIDE * 0.45)
+    round(
+        height / width
+        * CHARS_WIDE
+        * 0.45
+    )
 )
 
 image = image.resize(
@@ -57,13 +65,17 @@ pixels = list(image.getdata())
 rows = []
 
 for y in range(chars_height):
+
     row = []
 
     for x in range(CHARS_WIDE):
-        brightness = pixels[y * CHARS_WIDE + x]
 
-        # 255 = white -> first character
-        # 0   = black -> last character
+        brightness = pixels[
+            y * CHARS_WIDE + x
+        ]
+
+        # White = sparse characters
+        # Black = dense characters
         index = int(
             (255 - brightness)
             / 255
@@ -83,24 +95,40 @@ svg_height = chars_height * LINE_HEIGHT + 10
 
 svg = []
 
+# SVG opening
 svg.append(
     f'<svg xmlns="http://www.w3.org/2000/svg" '
-    f'width="{svg_width}" height="{svg_height}" '
+    f'width="{svg_width}" '
+    f'height="{svg_height}" '
     f'viewBox="0 0 {svg_width} {svg_height}">'
 )
 
+# Dark terminal background
 svg.append(
-    f'<rect width="100%" height="100%" fill="white"/>'
+    f'<rect '
+    f'x="0" '
+    f'y="0" '
+    f'width="100%" '
+    f'height="100%" '
+    f'fill="{BACKGROUND_COLOR}"/>'
 )
 
+# -----------------------------
+# CSS
+# -----------------------------
+
 svg.append(
-    f'<style>'
-    f'.ascii {{ '
-    f'font-family: "Courier New", monospace; '
-    f'font-size: {FONT_SIZE}px; '
-    f'fill: {TEXT_COLOR}; '
-    f'}}'
-    f'</style>'
+    f'''
+<style>
+
+.ascii {{
+    font-family: "Courier New", monospace;
+    font-size: {FONT_SIZE}px;
+    fill: {TEXT_COLOR};
+}}
+
+</style>
+'''
 )
 
 # -----------------------------
@@ -114,32 +142,57 @@ for i, row in enumerate(rows):
     # Escape special XML characters
     safe_row = html.escape(row)
 
+    # Each row starts slightly after
+    # the previous row.
     delay = i * 0.035
 
-    # Each row appears from left to right.
-    svg.append(
-        f'<clipPath id="clip{i}">'
-        f'<rect x="0" y="{y - LINE_HEIGHT}" '
-        f'width="{svg_width}" height="{LINE_HEIGHT}">'
-        f'<animate attributeName="width" '
-        f'from="0" to="{svg_width}" '
-        f'dur="0.45s" '
-        f'begin="{delay:.3f}s" '
-        f'fill="freeze"/>'
-        f'</rect>'
-        f'</clipPath>'
-    )
+    # -------------------------
+    # Clip path
+    # -------------------------
 
     svg.append(
-        f'<text x="0" y="{y}" '
-        f'class="ascii" '
-        f'clip-path="url(#clip{i})" '
-        f'xml:space="preserve">'
-        f'{safe_row}'
-        f'</text>'
+        f'''
+<clipPath id="clip{i}">
+    <rect
+        x="0"
+        y="{y - LINE_HEIGHT}"
+        width="0"
+        height="{LINE_HEIGHT}">
+
+        <animate
+            attributeName="width"
+            from="0"
+            to="{svg_width}"
+            dur="0.45s"
+            begin="{delay:.3f}s"
+            fill="freeze"/>
+
+    </rect>
+</clipPath>
+'''
     )
 
+    # -------------------------
+    # ASCII row
+    # -------------------------
+
+    svg.append(
+        f'''
+<text
+    x="0"
+    y="{y}"
+    class="ascii"
+    clip-path="url(#clip{i})"
+    xml:space="preserve">{safe_row}</text>
+'''
+    )
+
+# Close SVG
 svg.append("</svg>")
+
+# -----------------------------
+# Write SVG
+# -----------------------------
 
 OUTPUT.write_text(
     "\n".join(svg),
@@ -147,4 +200,7 @@ OUTPUT.write_text(
 )
 
 print(f"Created: {OUTPUT}")
-print(f"Size: {CHARS_WIDE} x {chars_height} characters")
+print(
+    f"Size: {CHARS_WIDE} x "
+    f"{chars_height} characters"
+)
