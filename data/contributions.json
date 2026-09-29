@@ -1,8 +1,8 @@
 {
   "username": "Aditi1989",
-  "total": 400,
+  "total": 401,
   "current_streak": 0,
-  "longest_streak": 24,
+  "longest_streak": 25,
   "best_day": {
     "date": "2026-03-03",
     "level": 4,
@@ -1836,6 +1836,11 @@
     },
     {
       "date": "2026-09-28",
+      "level": 1,
+      "count": 1
+    },
+    {
+      "date": "2026-09-29",
       "level": 0,
       "count": 0
     }
